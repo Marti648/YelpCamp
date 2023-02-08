@@ -1,0 +1,68 @@
+<%layout("layouts/boilerplate.ejs")%>
+
+    <div class="container d-flex justify-content-center align-items-center mt-3 mb-5">
+        <div class="row">
+            <div class="col mx-auto">
+
+                <div class="card" style="width: 23rem;">
+                    <img class="card-img-top"
+                        src="https://images.unsplash.com/photo-1626619859368-6e63d6303599?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
+                        alt="">
+                    <div class="card-body">
+                        <h5 class="card-title">Login</h5>
+                        <form action="/login" method="POST" class="needs-validation" novalidate>
+                            <div class="mb-3">
+                                <label class="form-label" for="username">Username</label>
+                                <!-- the for matches the id of the input -->
+                                <input class="form-control" type="text" id="username" name="username" autofocus required>
+                                <!--the name is submitted -->
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label" for="password">Password</label>
+                                <input class="form-control" type="password" id="password" name="password" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button class="btn btn-success w-100">Log in</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>

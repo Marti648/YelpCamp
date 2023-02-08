@@ -1,0 +1,85 @@
+<%layout('layouts/boilerplate.ejs')%>
+    <div class="row">
+        <h1 class="text-center">Edit campground</h1>
+        <div class="col-6 offset-3">
+            <form action="/campgrounds/<%=campground._id%>?_method=PUT" method="POST" novalidate
+                class="needs-validation" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label class="form-label" for="title">Title</label> <!-- the for matches the id of the input -->
+                    <input class="form-control" type="text" id="title" name="campground[title]"
+                        value="<%=campground.title%>" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="location">Location</label>
+                    <input class="form-control" type="text" id="location" name="campground[location]"
+                        value="<%=campground.location%>" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="image">Add/Edit Images</label>
+                    <input class="form-control" type="file" id="image" name="image" multiple>
+                </div>
+                <!-- this is for the price -->
+                <div class="mb-3">
+                    <label class="form-label" for="price">Campground price</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">$</span>
+                        </div>
+                        <input type="text" class="form-control" id="price" name="campground[price]"
+                            value="<%=campground.price%>" required>
+                        <div class="input-group-append">
+                            <span class="input-group-text">.00</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="description">Description</label>
+                    <textarea class="form-control" type="text" id="description" name="campground[description]"
+                        required><%=campground.description%></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <% campground.images.forEach(function(img,i){ %>
+                        <img src="<%=img.url%>" class="img-thumbnail" alt="">
+                        <label for="image-<%-i%>">Delete image</label>
+                        <input type="checkbox" class="form-check-inline" id="image-<%=i%>" name="deleteImages[]"
+                            value="<%=img.filename%>">
+                        <% }) %>
+                            <!-- when submitting the form, the name refers to the value in the req.body. by adding [] after the name, we tell req.body that deletedImages is an array, containing all values submitted using this form. compare to campground[description], there we create an object campground, that holds different attributes, and we can access the values by doing campground.description for ex. -->
+                </div>
+
+                <div class="mb-3">
+                    <button class="btn btn-info">Save changes</button>
+                </div>
+                <a href="/campgrounds">All campgrounds</a>
+            </form>
+        </div>
+
+    </div>
+
+
+
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
